@@ -6,12 +6,13 @@ import { getFirestore, collection, query, where, orderBy, getDocs } from "https:
 
 // 2. Your Firebase configuration (Grab this from your Firebase Console)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyDvXK8gu7nkCVpCwv6urbcfDmE_8FWZv3A",
   authDomain: "robes-of-black.firebaseapp.com",
   projectId: "robes-of-black",
-  storageBucket: "robes-of-black.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  storageBucket: "robes-of-black.firebasestorage.app",
+  messagingSenderId: "725561844044",
+  appId: "1:725561844044:web:8ac74e18ce8256cf486fe9",
+  measurementId: "G-0VF3L2F7JD"
 };
 
 // 3. Initialize Firebase and Firestore
