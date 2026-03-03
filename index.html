@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robes of Black</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --accent-green: #90d463; /* Matched from logo */
+            --accent-purple: #7a3898; /* Matched from logo */
+            --nav-bg: #111111;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-purple);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo img {
+            height: 45px; /* Perfect for the horizontal logo */
+            filter: drop-shadow(0 0 8px rgba(144, 212, 99, 0.2));
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+            text-shadow: 0 0 10px rgba(144, 212, 99, 0.5);
+        }
+
+        .nav-links a.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .nav-links a.disabled:hover {
+            color: var(--text-main);
+            text-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 2rem;
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 100%);
+            border-bottom: 1px solid #222;
+        }
+
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            /* Adds a subtle purple glow behind the stacked logo */
+            filter: drop-shadow(0 0 20px rgba(122, 56, 152, 0.4)); 
+        }
+
+        /* Main Body Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--accent-green);
+            border-bottom: 1px solid var(--accent-purple);
+            padding-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        /* Event Listings */
+        .event-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: #111;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 4px 4px 0;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .event-item:hover {
+            transform: translateX(8px);
+            border-left-color: var(--accent-purple);
+            background: #151515;
+        }
+
+        .event-date { 
+            font-weight: bold; 
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+        
+        .event-venue {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .event-location {
+            color: #888;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--nav-bg);
+            border-top: 1px solid var(--accent-purple);
+            margin-top: 4rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="1000009113.png" alt="Robes of Black Logo">
+        </div>
+        <div class="nav-links">
+            <a href="#events">Tour</a>
+            <a href="#about">About</a>
+            <a href="#" class="disabled" title="Coming Soon">Merch</a>
+            <a href="#" class="disabled" title="Coming Soon">Portal</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <img src="1000009110.png" alt="Robes of Black">
+    </header>
+
+    <main>
+        <section id="events">
+            <h2>Upcoming Shows</h2>
+            <ul class="event-list">
+                <li class="event-item">
+                    <span class="event-date">Oct 13, 2026</span>
+                    <span class="event-venue">The Underground</span>
+                    <span class="event-location">City, ST</span>
+                </li>
+                <li class="event-item">
+                    <span class="event-date">Oct 31, 2026</span>
+                    <span class="event-venue">Halloween Havoc</span>
+                    <span class="event-location">City, ST</span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="about">
+            <h2>About the Band</h2>
+            <p>Formed in the shadows and driven by a relentless pulse, Robes of Black delivers a heavy, uncompromising sound. [Insert the rest of the band's killer bio here...]</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Robes of Black. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
