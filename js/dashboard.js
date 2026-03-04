@@ -5,12 +5,13 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 // Paste your Firebase Config here
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "robes-of-black.firebaseapp.com",
-    projectId: "robes-of-black",
-    storageBucket: "robes-of-black.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDvXK8gu7nkCVpCwv6urbcfDmE_8FWZv3A",
+  authDomain: "robes-of-black.firebaseapp.com",
+  projectId: "robes-of-black",
+  storageBucket: "robes-of-black.firebasestorage.app",
+  messagingSenderId: "725561844044",
+  appId: "1:725561844044:web:8ac74e18ce8256cf486fe9",
+  measurementId: "G-0VF3L2F7JD"
 };
 
 // Initialize Firebase
