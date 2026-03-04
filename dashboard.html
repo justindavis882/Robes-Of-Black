@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Robes of Black</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --accent-green: #90d463; 
+            --accent-purple: #7a3898; 
+            --panel-bg: #111111;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        aside {
+            width: var(--sidebar-width);
+            background-color: var(--panel-bg);
+            border-right: 2px solid var(--accent-purple);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .brand img {
+            width: 80%;
+            filter: drop-shadow(0 0 5px rgba(144, 212, 99, 0.3));
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .nav-menu li a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu li a:hover, .nav-menu li a.active {
+            background-color: #1a1a1a;
+            border-left-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .user-info {
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #222;
+        }
+
+        #logout-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0;
+            margin-top: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        #logout-btn:hover {
+            color: #ffaaaa;
+            text-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+        }
+
+        /* Main Content Area */
+        main {
+            flex-grow: 1;
+            padding: 3rem;
+            overflow-y: auto;
+            background: radial-gradient(circle at top right, #1a1a1a 0%, var(--bg-color) 100%);
+        }
+
+        header {
+            border-bottom: 1px solid var(--accent-purple);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: var(--accent-green);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Placeholder Dashboard Card */
+        .dashboard-card {
+            background-color: var(--panel-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-purple);
+        }
+    </style>
+</head>
+<body style="display: none;">
+
+    <aside>
+        <div class="brand">
+            <img src="1000009110.png" alt="Robes of Black">
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Overview</a></li>
+            <li><a href="#">Manage Tour</a></li>
+            <li><a href="#">Manage Merch</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+
+        <div class="user-info">
+            Logged in as: <br>
+            <strong id="user-email">Loading...</strong>
+            <button id="logout-btn">Log Out</button>
+        </div>
+    </aside>
+
+    <main>
+        <header>
+            <h1>Portal Overview</h1>
+        </header>
+
+        <div class="dashboard-card">
+            <h2>Welcome to the Void</h2>
+            <p>Select an option from the sidebar to start managing the site.</p>
+        </div>
+    </main>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
