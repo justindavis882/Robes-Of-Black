@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Portal | Robes of Black</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --accent-green: #90d463; 
+            --accent-purple: #7a3898; 
+            --box-bg: #111111;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 100%);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background-color: var(--box-bg);
+            padding: 3rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--accent-green);
+            border-bottom: 4px solid var(--accent-purple);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container img {
+            width: 80%;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 10px rgba(122, 56, 152, 0.3));
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: var(--text-main);
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(144, 212, 99, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #5c2775;
+            box-shadow: 0 0 15px rgba(122, 56, 152, 0.5);
+        }
+
+        #error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            min-height: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="1000009113.png" alt="Robes of Black Portal">
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label for="email">Team Email</label>
+                <input type="email" id="email" required autocomplete="email">
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required autocomplete="current-password">
+            </div>
+            
+            <button type="submit">Access Portal</button>
+        </form>
+        
+        <div id="error-message"></div>
+
+        <a href="index.html" class="back-link">&larr; Back to Public Site</a>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
