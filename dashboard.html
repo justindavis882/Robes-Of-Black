@@ -24,7 +24,7 @@
             overflow: hidden;
         }
 
-        /* Sidebar */
+        /* Sidebar (Unchanged) */
         aside {
             width: var(--sidebar-width);
             background-color: var(--panel-bg);
@@ -33,129 +33,189 @@
             flex-direction: column;
             padding: 2rem 0;
         }
-
-        .brand {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
-        }
-
-        .brand img {
-            width: 80%;
-            filter: drop-shadow(0 0 5px rgba(144, 212, 99, 0.3));
-        }
-
-        .nav-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1;
-        }
-
+        .brand { text-align: center; margin-bottom: 2rem; padding: 0 1rem; }
+        .brand img { width: 80%; filter: drop-shadow(0 0 5px rgba(144, 212, 99, 0.3)); }
+        .nav-menu { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
         .nav-menu li a {
-            display: block;
-            padding: 1rem 2rem;
-            color: var(--text-main);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
-            border-left: 4px solid transparent;
-            transition: all 0.2s ease;
+            display: block; padding: 1rem 2rem; color: var(--text-main);
+            text-decoration: none; text-transform: uppercase; font-weight: bold;
+            letter-spacing: 1px; border-left: 4px solid transparent; transition: all 0.2s ease;
         }
-
         .nav-menu li a:hover, .nav-menu li a.active {
-            background-color: #1a1a1a;
-            border-left-color: var(--accent-green);
-            color: var(--accent-green);
+            background-color: #1a1a1a; border-left-color: var(--accent-green); color: var(--accent-green);
         }
-
-        .user-info {
-            padding: 1rem 2rem;
-            font-size: 0.85rem;
-            color: #888;
-            border-top: 1px solid #222;
-        }
-
+        .user-info { padding: 1rem 2rem; font-size: 0.85rem; color: #888; border-top: 1px solid #222; }
         #logout-btn {
-            background: none;
-            border: none;
-            color: #ff4444;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 0;
-            margin-top: 0.5rem;
-            transition: color 0.2s;
+            background: none; border: none; color: #ff4444; cursor: pointer;
+            font-weight: bold; text-transform: uppercase; padding: 0; margin-top: 0.5rem; transition: color 0.2s;
         }
-
-        #logout-btn:hover {
-            color: #ffaaaa;
-            text-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
-        }
+        #logout-btn:hover { color: #ffaaaa; text-shadow: 0 0 8px rgba(255, 68, 68, 0.4); }
 
         /* Main Content Area */
         main {
-            flex-grow: 1;
-            padding: 3rem;
-            overflow-y: auto;
+            flex-grow: 1; padding: 3rem; overflow-y: auto;
             background: radial-gradient(circle at top right, #1a1a1a 0%, var(--bg-color) 100%);
         }
+        header { border-bottom: 1px solid var(--accent-purple); padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        h1 { color: var(--accent-green); margin: 0; text-transform: uppercase; letter-spacing: 2px; }
 
-        header {
-            border-bottom: 1px solid var(--accent-purple);
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
+        /* SPA Views */
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        h1 {
-            color: var(--accent-green);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        /* Tables & Grids */
+        table { width: 100%; border-collapse: collapse; background: var(--panel-bg); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #222; }
+        th { background: #1a1a1a; color: var(--accent-green); text-transform: uppercase; }
+        tr:hover { background: #151515; }
+        
+        .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .merch-card { background: var(--panel-bg); border-top: 3px solid var(--accent-purple); border-radius: 8px; padding: 1rem; text-align: center; }
+        .merch-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 1rem; }
+        .merch-card h3 { margin: 0 0 0.5rem 0; color: var(--accent-green); }
+        .merch-card p { font-size: 0.9rem; color: #aaa; margin-bottom: 1rem; height: 60px; overflow: hidden; }
+        
+        /* Buttons & Forms */
+        .btn { background: var(--accent-purple); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.2s; }
+        .btn:hover { background: #5c2775; }
+        .btn-small { padding: 0.3rem 0.6rem; font-size: 0.8rem; margin-right: 0.5rem; }
+        .btn-danger { background: #ff4444; }
+        .btn-danger:hover { background: #cc0000; }
+        .btn-outline { background: transparent; border: 1px solid var(--accent-green); color: var(--accent-green); }
+        
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: #aaa; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-green); }
 
-        /* Placeholder Dashboard Card */
-        .dashboard-card {
-            background-color: var(--panel-bg);
-            padding: 2rem;
-            border-radius: 8px;
-            border-top: 3px solid var(--accent-purple);
-        }
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--panel-bg); padding: 2rem; border-radius: 8px; width: 100%; max-width: 500px; border-top: 4px solid var(--accent-green); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
 <body style="display: none;">
 
     <aside>
-        <div class="brand">
-            <img src="logo.png" alt="Robes of Black">
-        </div>
-        
+        <div class="brand"><img src="logo.png" alt="Robes of Black"></div>
         <ul class="nav-menu">
-            <li><a href="#" class="active">Overview</a></li>
-            <li><a href="#">Manage Tour</a></li>
-            <li><a href="#">Manage Merch</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="#" data-target="view-overview" class="active">Overview</a></li>
+            <li><a href="#" data-target="view-tours">Manage Tour</a></li>
+            <li><a href="#" data-target="view-merch">Manage Merch</a></li>
+            <li><a href="#" data-target="view-settings">Settings</a></li>
         </ul>
-
-        <div class="user-info">
-            Logged in as: <br>
-            <strong id="user-email">Loading...</strong>
-            <button id="logout-btn">Log Out</button>
-        </div>
+        <div class="user-info">Logged in as: <br><strong id="user-email">Loading...</strong><button id="logout-btn">Log Out</button></div>
     </aside>
 
     <main>
-        <header>
-            <h1>Portal Overview</h1>
-        </header>
+        <section id="view-overview" class="view-section active">
+            <header><h1>Portal Overview</h1></header>
+            <div style="background: var(--panel-bg); padding: 2rem; border-radius: 8px; border-top: 3px solid var(--accent-purple);">
+                <h2>Welcome to the Void</h2>
+                <p>Select an option from the sidebar to manage events, merchandise, and site settings.</p>
+            </div>
+        </section>
 
-        <div class="dashboard-card">
-            <h2>Welcome to the Void</h2>
-            <p>Select an option from the sidebar to start managing the site.</p>
-        </div>
+        <section id="view-tours" class="view-section">
+            <header>
+                <h1>Manage Tour</h1>
+                <button class="btn" onclick="openModal('tour-modal')">+ Add Event</button>
+            </header>
+            <table>
+                <thead>
+                    <tr><th>Date</th><th>Venue</th><th>Location</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="tour-table-body">
+                    </tbody>
+            </table>
+        </section>
+
+        <section id="view-merch" class="view-section">
+            <header>
+                <h1>Manage Merch</h1>
+                <button class="btn" onclick="openModal('merch-modal')">+ Add Product</button>
+            </header>
+            <div class="merch-grid" id="merch-grid-container">
+                </div>
+        </section>
+
+        <section id="view-settings" class="view-section">
+            <header><h1>Site Settings</h1></header>
+            <div style="background: var(--panel-bg); padding: 2rem; border-radius: 8px;">
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label>Floating Header Text (Displays at top of site)</label>
+                        <input type="text" id="setting-header" placeholder="e.g., NEW ALBUM OUT NOW!">
+                    </div>
+                    <div class="form-group">
+                        <label>About Us Section (Frontpage)</label>
+                        <textarea id="setting-about" rows="6" placeholder="Band bio..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Logo Image URL</label>
+                        <input type="text" id="setting-logo" placeholder="https://...">
+                    </div>
+                    <button type="submit" class="btn">Save Settings</button>
+                </form>
+            </div>
+        </section>
     </main>
 
+    <div id="tour-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="tour-modal-title">Add Event</h2>
+                <button class="close-modal" onclick="closeModal('tour-modal')">&times;</button>
+            </div>
+            <form id="tour-form">
+                <input type="hidden" id="tour-id">
+                <div class="form-group"><label>Date</label><input type="date" id="tour-date" required></div>
+                <div class="form-group"><label>Venue</label><input type="text" id="tour-venue" required></div>
+                <div style="display: flex; gap: 1rem;">
+                    <div class="form-group" style="flex: 1;"><label>City</label><input type="text" id="tour-city" required></div>
+                    <div class="form-group" style="flex: 1;"><label>State</label><input type="text" id="tour-state" required></div>
+                </div>
+                <div class="form-group"><label>Ticket Link</label><input type="url" id="tour-link"></div>
+                <div class="form-group">
+                    <label><input type="checkbox" id="tour-published" checked> Published (Visible on site)</label>
+                </div>
+                <button type="submit" class="btn">Save Event</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="merch-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="merch-modal-title">Add Product</h2>
+                <button class="close-modal" onclick="closeModal('merch-modal')">&times;</button>
+            </div>
+            <form id="merch-form">
+                <input type="hidden" id="merch-id">
+                <div class="form-group"><label>Item Name</label><input type="text" id="merch-name" required></div>
+                <div class="form-group"><label>Photo URL</label><input type="url" id="merch-photo" required></div>
+                <div class="form-group"><label>Price (e.g., $25.00)</label><input type="text" id="merch-price" required></div>
+                <div class="form-group"><label>Description (Max 250 chars)</label><textarea id="merch-desc" maxlength="250" rows="3" required></textarea></div>
+                <div class="form-group"><label>Stripe Checkout Link</label><input type="url" id="merch-link" required></div>
+                <div class="form-group">
+                    <label><input type="checkbox" id="merch-published" checked> Published (Visible on site)</label>
+                </div>
+                <button type="submit" class="btn">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+            document.getElementById(id.replace('-modal', '-form')).reset();
+            document.getElementById(id.replace('-modal', '-id')).value = '';
+        }
+    </script>
     <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
