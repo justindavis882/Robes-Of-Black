@@ -1,7 +1,8 @@
 // js/main.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, query, where, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -17,6 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app); 
 
 // === SPA ROUTING ===
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -143,6 +145,71 @@ async function loadMerch() {
         console.error("Error loading merch:", error);
         gridContainer.innerHTML = '<p style="color: #ff4444; grid-column: 1 / -1;">Failed to load the armory.</p>';
     }
+}
+
+// === CONTACT FORM HANDLING ===
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('contact-submit-btn');
+        const statusText = document.getElementById('contact-status');
+        const fileInput = document.getElementById('contact-file');
+        
+        const name = document.getElementById('contact-name').value;
+        const email = document.getElementById('contact-email').value;
+        const message = document.getElementById('contact-message').value;
+        const file = fileInput.files[0];
+
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.5';
+        statusText.style.color = 'var(--accent-green)';
+        statusText.textContent = 'Initiating transfer...';
+
+        try {
+            let fileUrl = null;
+
+            // 1. Upload File if one was selected
+            if (file) {
+                // Check size client-side first (100MB)
+                if (file.size > 100 * 1024 * 1024) {
+                    throw new Error("File is too large. Maximum size is 100MB.");
+                }
+
+                statusText.textContent = 'Uploading file... do not close page.';
+                const uniqueFileName = `${Date.now()}_${file.name}`;
+                const storageRef = ref(storage, `contact_uploads/${uniqueFileName}`);
+                const uploadTask = await uploadBytesResumable(storageRef, file);
+                fileUrl = await getDownloadURL(uploadTask.ref);
+            }
+
+            // 2. Save Message Data to Firestore
+            statusText.textContent = 'Securing message...';
+            await addDoc(collection(db, "messages"), {
+                name: name,
+                email: email,
+                message: message,
+                fileUrl: fileUrl, // Will be null if no file attached
+                timestamp: serverTimestamp(),
+                read: false
+            });
+
+            // Success
+            statusText.textContent = 'Message sent to the void successfully.';
+            contactForm.reset();
+
+        } catch (error) {
+            console.error("Submission Error:", error);
+            statusText.style.color = '#ff4444';
+            statusText.textContent = error.message || 'Failed to send message. Try again later.';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            setTimeout(() => { statusText.textContent = ''; }, 5000);
+        }
+    });
 }
 
 // Initialize all data streams
