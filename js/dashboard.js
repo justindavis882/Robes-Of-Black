@@ -2,8 +2,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc, getDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc, getDoc, Timestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 // Your Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyDvXK8gu7nkCVpCwv6urbcfDmE_8FWZv3A",
@@ -27,6 +26,7 @@ onAuthStateChanged(auth, (user) => {
         loadTours(); // Pre-load data
         loadMerch();
         loadSettings();
+        loadMessages();
     } else {
         window.location.replace('portal.html');
     }
@@ -232,3 +232,51 @@ settingsForm.addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Saved!';
     setTimeout(() => submitBtn.textContent = 'Save Settings', 2000);
 });
+
+// === MANAGE INBOX ===
+async function loadMessages() {
+    const tableBody = document.getElementById('messages-table-body');
+    tableBody.innerHTML = '<tr><td colspan="4" style="padding: 1rem;">Scanning inbox...</td></tr>';
+    
+    try {
+        // Fetch newest messages first
+        const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
+        
+        if (snapshot.empty) {
+            tableBody.innerHTML = '<tr><td colspan="4" style="padding: 1rem; color: #888;">Inbox is empty.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = '';
+        snapshot.forEach(docSnap => {
+            const msg = docSnap.data();
+            const dateStr = msg.timestamp ? msg.timestamp.toDate().toLocaleDateString() : 'Just now';
+            
+            // Format attachment button
+            let attachmentHtml = '<span style="color: #555;">None</span>';
+            if (msg.fileUrl) {
+                attachmentHtml = `<a href="${msg.fileUrl}" target="_blank" class="btn btn-small btn-outline">View File</a>`;
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="padding: 1rem; border-bottom: 1px solid #222;">${dateStr}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid #222;">
+                    <strong>${msg.name}</strong><br>
+                    <a href="mailto:${msg.email}" style="color: var(--accent-purple); font-size: 0.85rem;">${msg.email}</a>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid #222; max-width: 300px;">
+                    <div style="max-height: 80px; overflow-y: auto; color: #ccc; font-size: 0.9rem; padding-right: 10px;">
+                        ${msg.message}
+                    </div>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid #222;">${attachmentHtml}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error("Error loading messages:", error);
+        tableBody.innerHTML = '<tr><td colspan="4" style="padding: 1rem; color: #ff4444;">Error loading messages.</td></tr>';
+    }
+}
