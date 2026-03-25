@@ -236,6 +236,7 @@
                 <li><a href="#" data-target="view-home" class="active">Home</a></li>
                 <li><a href="#" data-target="view-tour">Tour</a></li>
                 <li><a href="#" data-target="view-merch">Merch</a></li>
+                <li><a href="#" data-target="view-contact">Contact</a></li>
             </ul>
             <div class="portal-link">
                 <a href="portal.html">Crew Login &rarr;</a>
@@ -264,6 +265,34 @@
                 <h2 class="section-title">Artifacts</h2>
                 <div class="merch-grid" id="merch-list">
                     <p style="color: #888;">Unearthing relics...</p>
+                </div>
+            </section>
+
+            <section id="view-contact" class="view-section">
+                <h2 class="section-title">Reach the Void</h2>
+                <div style="background: #111; padding: 2rem; border-top: 3px solid var(--accent-purple); border-radius: 8px;">
+                    <p style="color: #aaa; margin-bottom: 2rem;">Send us a message or submit your audition tape.</p>
+                    <form id="contact-form">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; color: #888; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem;">Name</label>
+                            <input type="text" id="contact-name" required style="width: 100%; padding: 0.75rem; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; color: #888; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem;">Email</label>
+                            <input type="email" id="contact-email" required style="width: 100%; padding: 0.75rem; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; color: #888; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem;">Message / Audition Details</label>
+                            <textarea id="contact-message" rows="4" required style="width: 100%; padding: 0.75rem; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; color: #888; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem;">Upload File (Max 100MB)</label>
+                            <input type="file" id="contact-file" accept="video/*,audio/*,.pdf,.doc,.docx" style="color: white;">
+                        </div>
+                        
+                        <button type="submit" id="contact-submit-btn" class="btn-buy" style="border: none; cursor: pointer;">Send Message</button>
+                        <div id="contact-status" style="margin-top: 1rem; font-weight: bold; color: var(--accent-green);"></div>
+                    </form>
                 </div>
             </section>
         </main>
