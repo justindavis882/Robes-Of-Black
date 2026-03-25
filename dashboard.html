@@ -113,10 +113,20 @@
 
     <main>
         <section id="view-overview" class="view-section active">
-            <header><h1>Portal Overview</h1></header>
-            <div style="background: var(--panel-bg); padding: 2rem; border-radius: 8px; border-top: 3px solid var(--accent-purple);">
-                <h2>Welcome to the Void</h2>
-                <p>Select an option from the sidebar to manage events, merchandise, and site settings.</p>
+            <header><h1>Inbox & Overview</h1></header>
+            <div style="background: var(--panel-bg); padding: 1rem; border-radius: 8px; border-top: 3px solid var(--accent-purple);">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #333; color: var(--accent-green);">Date</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #333; color: var(--accent-green);">Sender</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #333; color: var(--accent-green);">Message</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #333; color: var(--accent-green);">Attachment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-table-body">
+                        </tbody>
+                </table>
             </div>
         </section>
 
