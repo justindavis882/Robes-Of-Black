@@ -42,6 +42,11 @@ const views = document.querySelectorAll('.view-section');
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('data-target');
+        
+        // If there is no data-target, let the browser navigate normally
+        if (!targetId) return; 
+
         e.preventDefault();
         // Remove active class from all links and views
         navLinks.forEach(l => l.classList.remove('active'));
@@ -49,7 +54,6 @@ navLinks.forEach(link => {
         
         // Add active class to clicked link and corresponding view
         link.classList.add('active');
-        const targetId = link.getAttribute('data-target');
         document.getElementById(targetId).classList.add('active');
     });
 });
