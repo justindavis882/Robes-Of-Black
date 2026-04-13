@@ -121,6 +121,16 @@
         button.export-btn { background: #444; }
         button.delete-btn { background: #c0392b; padding: 5px 10px; font-size: 0.8em; }
 
+        a.exit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
         @media print {
             .toolbar, .controls, .delete-btn, #add-section { display: none !important; }
             body { background: white; color: black; }
@@ -153,7 +163,7 @@
         <button class="main-btn export-btn" onclick="exportTxt()">Export .TXT</button>
         <button class="main-btn export-btn" onclick="exportPdf()">Export .PDF</button>
         <button class="main-btn" onclick="saveData()" style="background: #27ae60;">Save Manually</button>
-        <a class="main-btn" href="portal.html">Back to Portal</a>
+        <a class="exit-btn" href="portal.html">Back to Portal</a>
     </div>
 </div>
 
