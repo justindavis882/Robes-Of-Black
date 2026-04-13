@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robes of Black | PracticeNotes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg: #1a1a1a;
+            --panel: #2d2d2d;
+            --text: #e0e0e0;
+            --accent: #8e44ad;
+            --border: #444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--panel);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+
+        input, .editor {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .section-block {
+            background: #333;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .section-title-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.2em;
+            color: var(--accent);
+            width: 70%;
+        }
+
+        .toolbar {
+            margin-bottom: 10px;
+            background: #444;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .toolbar button {
+            background: #555;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .toolbar button:hover { background: var(--accent); }
+
+        .editor {
+            min-height: 150px;
+            background: #1a1a1a;
+            white-space: pre-wrap;
+        }
+
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button.main-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button.export-btn { background: #444; }
+        button.delete-btn { background: #c0392b; padding: 5px 10px; font-size: 0.8em; }
+
+        @media print {
+            .toolbar, .controls, .delete-btn, #add-section { display: none !important; }
+            body { background: white; color: black; }
+            .container { box-shadow: none; width: 100%; }
+            .section-block { border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app-content">
+    <h1>Robes of Black | Practice Log</h1>
+    
+    <div class="meta-grid">
+        <div>
+            <label>Date</label>
+            <input type="date" id="practice-date">
+        </div>
+        <div>
+            <label>Note Taker</label>
+            <input type="text" id="note-taker" placeholder="Name">
+        </div>
+    </div>
+
+    <div id="sections-container">
+        </div>
+
+    <div class="controls">
+        <button class="main-btn" id="add-section">+ Add Section</button>
+        <button class="main-btn export-btn" onclick="exportTxt()">Export .TXT</button>
+        <button class="main-btn export-btn" onclick="exportPdf()">Export .PDF</button>
+        <button class="main-btn" onclick="saveData()" style="background: #27ae60;">Save Manually</button>
+        <a class="main-btn" href="./portal.html">Back to Portal</a>
+    </div>
+</div>
+
+<script>
+    const container = document.getElementById('sections-container');
+    const addBtn = document.getElementById('add-section');
+
+    // Initialize Data
+    let practiceData = JSON.parse(localStorage.getItem('robesOfBlackNotes')) || {
+        date: new Date().toISOString().split('T')[0],
+        taker: '',
+        sections: [{ title: 'General Notes', content: 'Focus for today...' }]
+    };
+
+    function init() {
+        document.getElementById('practice-date').value = practiceData.date;
+        document.getElementById('note-taker').value = practiceData.taker;
+        renderSections();
+    }
+
+    function renderSections() {
+        container.innerHTML = '';
+        practiceData.sections.forEach((sec, index) => {
+            const div = document.createElement('div');
+            div.className = 'section-block';
+            div.innerHTML = `
+                <div class="section-header">
+                    <input type="text" class="section-title-input" value="${sec.title}" oninput="updateSection(${index}, 'title', this.value)">
+                    <button class="main-btn delete-btn" onclick="removeSection(${index})">Remove</button>
+                </div>
+                <div class="toolbar">
+                    <button onclick="format('bold')">B</button>
+                    <button onclick="format('italic')">I</button>
+                    <button onclick="format('insertUnorderedList')">• List</button>
+                </div>
+                <div class="editor" contenteditable="true" oninput="updateSection(${index}, 'content', this.innerHTML)">${sec.content}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function format(cmd) {
+        document.execCommand(cmd, false, null);
+    }
+
+    function updateSection(index, field, value) {
+        practiceData.sections[index][field] = value;
+        autoSave();
+    }
+
+    function addSection() {
+        practiceData.sections.push({ title: 'New Section', content: '' });
+        renderSections();
+        autoSave();
+    }
+
+    function removeSection(index) {
+        if(confirm('Delete this section?')) {
+            practiceData.sections.splice(index, 1);
+            renderSections();
+            autoSave();
+        }
+    }
+
+    function saveData() {
+        practiceData.date = document.getElementById('practice-date').value;
+        practiceData.taker = document.getElementById('note-taker').value;
+        localStorage.setItem('robesOfBlackNotes', JSON.stringify(practiceData));
+        console.log("Saved!");
+    }
+
+    let timeout;
+    function autoSave() {
+        clearTimeout(timeout);
+        timeout = setTimeout(saveData, 1000);
+    }
+
+    function exportTxt() {
+        let text = `ROBES OF BLACK - PRACTICE LOG\n`;
+        text += `Date: ${practiceData.date}\n`;
+        text += `Taker: ${practiceData.taker}\n`;
+        text += `---------------------------\n\n`;
+        
+        practiceData.sections.forEach(s => {
+            // Strip HTML tags for TXT
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = s.content;
+            const cleanContent = tempDiv.textContent || tempDiv.innerText || "";
+            text += `SECTION: ${s.title}\n${cleanContent}\n\n`;
+        });
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const anchor = document.createElement('a');
+        anchor.download = `practice_${practiceData.date}.txt`;
+        anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+        anchor.click();
+    }
+
+    function exportPdf() {
+        const element = document.getElementById('app-content');
+        const opt = {
+            margin: 0.5,
+            filename: `practice_${practiceData.date}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+
+    addBtn.addEventListener('click', addSection);
+    document.getElementById('practice-date').oninput = autoSave;
+    document.getElementById('note-taker').oninput = autoSave;
+
+    init();
+</script>
+
+</body>
+</html>
